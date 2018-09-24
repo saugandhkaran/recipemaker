@@ -1,0 +1,29 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" >
+        VERSION MANAGER
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-light is-rounded" *ngIf="parentUrl === 'connectors'" routerLink="/connectors">Go to Connectors View</a>
+              <a class="button is-light is-rounded" *ngIf="parentUrl === 'modules'" routerLink="/modules">Go to Modules View</a>
+            </p>
+          </div>
+        </div>
+    </div>
+
+</nav>
+<div class="content">
+<router-outlet></router-outlet>
+</div>

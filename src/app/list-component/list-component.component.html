@@ -1,0 +1,84 @@
+<div class="columns">  
+    <div class="column">
+        <p class="control has-icons-right">
+      <input [(ngModel)]="searchInput" class="input is-rounded" type="text" placeholder="Search for utils/components">
+      <span class="icon is-small is-right">
+        <i class="material-icons" >search</i>
+      </span>
+      </p>
+    </div>
+    <div class="column">
+        <a class="button is-primary is-rounded" (click)='openModal()'><span class="icon is-small is-right">
+            <i class="material-icons">add</i>
+          </span>&nbsp; Add new component</a>
+    </div>
+</div>
+
+<div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Version</th>
+          <th>Module Type</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="table-content" *ngFor="let component of list | filterList:searchInput">
+            <td>{{component.name}}</td>
+            <td>{{component.version}}</td>
+            <td><span [ngClass]="{'tag is-primary is-rounded' : component.type === 'Preprocessor' ,
+                                  'tag is-link is-rounded' : component.type === 'Nuxeo Module', 
+                                  'tag is-success is-rounded' : component.type === 'HW Module'}">{{component.type}}</span></td>
+            <td><a class="button is-link is-small is-rounded" (click)='openModal(component._id)'>Edit</a> </td>
+          </tr>
+      </tbody>
+  </table>    
+</div>
+
+<!-- Modal Card -->
+<div class="modal is-active" *ngIf="modalActivated">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title" *ngIf="addNewMode">Add a component</p>
+        <p class="modal-card-title" *ngIf="editMode">Edit a component</p>
+        <button class="delete" (click)='openModal()' aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input [(ngModel)]="componentObject.name" class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Version</label>
+            <div class="control">
+              <input [(ngModel)]="componentObject.version" class="input" type="text" placeholder="Version">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Type</label>
+            <div class="control">
+              <input class="input" [(ngModel)]="componentObject.type" type="text" placeholder="Type">
+            </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success is-rounded" (click)='addNewComponent()'>Add Module</button>
+        <button class="button is-rounded" (click)='openModal()'>Cancel</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="notification is-success" *ngIf="componentAddedSuccess">
+      <button class="delete"></button>
+      Congrats! New component is added
+  </div>
+
+  <div class="notification is-danger" *ngIf="componentAddedFailed">
+      <button class="delete"></button>
+      Failed! Please try again
+  </div>

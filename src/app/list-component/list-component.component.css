@@ -1,0 +1,12 @@
+.notification{
+    z-index: 100;
+    position: fixed;
+    top: 10%;
+    right:0;
+    width:30%;
+}
+
+.table-content:hover{
+    background-color:silver;
+    color:white;
+}
